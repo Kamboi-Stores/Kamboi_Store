@@ -1,55 +1,62 @@
     
-# Gorrito Burrito Restaurant Website
+# Kamboi Gas Station Website
 
-A modern, fully-featured restaurant website built with Next.js + Sanity CMS. Features advanced UI/UX with dark/light themes, animated backgrounds, enhanced navigation, mobile-responsive design, and comprehensive location services.
+A modern, professional gas station and convenience store website built with Next.js + Sanity CMS. Features real-time store hours, location services, professional gas station theming, and comprehensive mobile-responsive design.
 
 ## ✨ Features
 
-### 🎨 **Modern UI/UX**
-- **Dynamic Theme System**: Light/dark mode toggle with system preference detection
-- **Animated Gradient Backgrounds**: Eye-catching hero section with CSS animations
-- **Enhanced Navigation**: Sticky header with scroll detection, breadcrumbs, and active page highlighting
-- **Mobile-First Design**: Responsive hamburger menu with staggered animations
-- **Interactive Elements**: Hover effects, micro-interactions, and smooth transitions
+### ⛽ **Gas Station Specific Features**
+- **Real-time Store Status**: Live open/closed indicators with countdown timers
+- **Store Hours Management**: Day-specific hours via Sanity CMS with fallback system
+- **Professional Design**: Gas station-appropriate red/blue color scheme
+- **Location Services**: Multiple store locations with GPS and ZIP code search
+- **Mobile-Optimized**: Professional mobile experience for customers on-the-go
 
-### 📍 **Location Services**
-- ZIP/GPS location finder with Google Geocoding API
-- Interactive location cards with distance calculation
-- "Find Location" button prominently featured in navigation
-- Automatic location detection and suggestions
+### 🎨 **Professional UI/UX**
+- **Gas Station Theme**: Professional red (#dc2626) and blue (#0ea5e9) color palette
+- **Enhanced Typography**: Professional text styling with shadows and visual emphasis
+- **Logo Animation**: Smooth zoom animation instead of rotation for professional appearance
+- **Responsive Navigation**: Clean header with optimized mobile hamburger menu
+- **Store Status Indicators**: Visual open/closed status with real-time updates
 
-### 🍔 **Restaurant Features**
-- Toast POS integration for online ordering
-- Sanity CMS for easy content management
-- SEO-optimized pages with meta tags
-- Contact form via Formspree (no backend required)
-- Rewards program page
+### 📍 **Advanced Location Services**
+- **Multi-Store Management**: Support for multiple gas station locations
+- **Real-time Status**: Automatic open/closed calculation based on current time
+- **Distance Calculation**: Haversine formula for accurate store distance
+- **Store Hours Display**: Comprehensive hours display with today's hours emphasis
+- **GPS Integration**: Automatic location detection for nearest store finding
+
+### 🕒 **Store Hours System**
+- **Dual Format Support**: Handles both 12-hour ("6:30 AM") and 24-hour ("06:30") time formats
+- **Day-Specific Hours**: Different hours for different days of the week
+- **Overnight Support**: Handles stores that close after midnight
+- **Fallback System**: Default hours if Sanity data unavailable
+- **Real-time Calculation**: Minute-by-minute status updates
 
 ### 📱 **Mobile Experience**
-- Hamburger menu with slide-in animations
-- Touch-friendly navigation
-- Responsive design across all screen sizes
-- Mobile-optimized spacing and interactions
+- **Touch-Friendly Interface**: Optimized for mobile gas station customers
+- **Fast Loading**: Optimized for mobile networks and quick access
+- **Professional Navigation**: Clean, easy-to-use mobile menu
+- **Location-First Design**: Quick access to store finder and hours
 
 ### 🔧 **Technical Features**
-- Full-width layout system with centered content containers
-- CSS custom properties for consistent theming
-- Advanced animations with cubic-bezier transitions
-- Optimized performance with Next.js 13+ App Router
-- TypeScript for type safety
-
+- **Robust Error Handling**: Graceful fallbacks for time parsing and data issues
+- **Debug Logging**: Comprehensive console logging for development
+- **CDN-Free Data**: Fresh data from Sanity without CDN delays
+- **Type Safety**: Full TypeScript implementation
+- **SEO Optimized**: Meta tags and structured data for search engines
 
 ## 🚀 Quick Start
 
 1. **Install Dependencies**
    ```bash
-   cd web && npm i
+   cd web && npm install
    ```
 
 2. **Environment Setup**
    ```bash
    cp .env.example .env.local
-   # Fill in your environment variables (see below)
+   # Configure your environment variables (see below)
    ```
 
 3. **Development Server**
@@ -62,16 +69,15 @@ A modern, fully-featured restaurant website built with Next.js + Sanity CMS. Fea
 
 ### **Required for Full Functionality**
 ```bash
-# Sanity CMS
-SANITY_PROJECT_ID=your_project_id
+# Sanity CMS Configuration
+NEXT_PUBLIC_SANITY_PROJECT_ID=qxbunha1
 SANITY_DATASET=production
 SANITY_API_READ_TOKEN=your_read_token  # Optional for public data
 
 # Google Services
-GOOGLE_GEOCODING_API_KEY=your_api_key  # Enable Geocoding API
+GOOGLE_GEOCODING_API_KEY=your_api_key  # Enable Geocoding API in Google Cloud
 
-# Analytics & Site Config
-NEXT_PUBLIC_GA4_ID=G-XXXXXXXXXX
+# Site Configuration
 NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 
 # Revalidation (for Sanity webhooks)
@@ -79,180 +85,169 @@ REVALIDATE_SECRET=your_secret_key
 ```
 
 ### **API Key Setup**
-- **Google Geocoding API**: Enable in Google Cloud Console, restrict by referrer/IP
-- **Sanity**: Create project at sanity.io, get credentials from project settings
+- **Google Geocoding API**: Enable in Google Cloud Console for location services
+- **Sanity**: Project ID `qxbunha1` with production dataset
 
-## 📧 Contact Form Setup (Formspree)
+## 🏪 Store Management
 
-The contact form uses [Formspree](https://formspree.io) for submissions - no backend required!
+### **Sanity Studio Access**
+- **Live Studio**: https://kamboistores.sanity.studio
+- **Local Development**: http://localhost:3333 (when running `npm run dev` in studio)
 
-### **Current Configuration**
-- **Endpoint**: `https://formspree.io/f/xldpgwpd`
-- **Method**: POST
-- **Fields**: name, email, message
-
-### **Form Implementation**
-```html
-<form action="https://formspree.io/f/xldpgwpd" method="POST">
-  <input type="text" name="name" required placeholder="Your Name" />
-  <input type="email" name="email" required placeholder="Your Email" />
-  <textarea name="message" required placeholder="Your Message"></textarea>
-  <button type="submit">Send</button>
-</form>
+### **Store Hours Configuration**
+```typescript
+// Example store hours in Sanity
+hours: [
+  { day: "monday", open: "06:30", close: "22:30" },
+  { day: "tuesday", open: "6:30 AM", close: "10:30 PM" },
+  { day: "wednesday", open: "closed", close: "closed" },
+  // Supports both 12-hour and 24-hour formats
+]
 ```
 
-### **Features**
-- ✅ Spam protection included
-- ✅ Email notifications to your inbox
-- ✅ Dashboard for managing submissions
-- ✅ No server-side code needed
+### **Location Data Structure**
+- **Name**: Store name (e.g., "Kamboi Gas Station #1")
+- **Address**: Full street address
+- **Coordinates**: Latitude and longitude for distance calculation
+- **Phone**: Store contact number
+- **Hours**: Day-specific operating hours
+- **Active Status**: Enable/disable store visibility
 
-## 🎨 Customization Guide
+## 🎨 Gas Station Customization
 
-### **Theme Colors**
-Update CSS custom properties in `app/styles/globals.css`:
+### **Professional Theme Colors**
 ```css
+/* Professional gas station color scheme */
 :root {
-  --primary: #dc2626;     /* Red */
-  --secondary: #f59e0b;   /* Orange/Yellow */
-  --accent: #dc2626;      /* Accent color */
-  /* Modify these to match your brand */
+  --primary: #dc2626;     /* Professional Red */
+  --secondary: #0ea5e9;   /* Professional Blue */
+  --accent: #dc2626;      /* Brand accent */
+  --text-emphasis: Professional text styling with shadows
 }
 ```
 
 ### **Logo & Branding**
-- Replace `public/logo.png` with your restaurant logo
-- Update restaurant name in `app/layout.tsx`
+- Replace `public/logo.png` with your gas station logo
+- Update store name in `app/layout.tsx`
 - Modify hero section content in `app/page.tsx`
 
 ### **Navigation Menu**
-Edit navigation links in `components/Navigation.tsx`:
 ```typescript
+// Professional gas station navigation
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/menu', label: 'Menu' },
-  // Add/remove/modify as needed
+  { href: '/locations', label: 'Store Locations' },
+  { href: '/about', label: 'About Us' },
+  { href: '/contact', label: 'Contact' },
+  // Removed menu/order options for gas station focus
 ];
 ```
 
 ## 🔧 Advanced Features
 
-### **Sanity CMS Integration**
-- **Automatic Revalidation**: Set up webhook in Sanity Studio
-- **Content Types**: Locations, Menu Items, Categories, Site Settings
-- **Real-time Updates**: Changes in Sanity appear instantly on site
+### **Real-time Store Status**
+The `LocationStatus` component provides:
+- **Live Calculation**: Real-time open/closed status
+- **Countdown Timers**: Time until next status change
+- **Overnight Hours**: Support for late-night operations
+- **Error Handling**: Graceful fallbacks for data issues
+- **Debug Logging**: Console logs for development
 
 ### **Location Services**
-- **ZIP Code Search**: Enter ZIP to find nearest locations
-- **GPS Detection**: Automatic location detection (with permission)
-- **Distance Calculation**: Haversine formula for accurate distances
-- **Interactive Maps**: Click to get directions
+- **ZIP Code Search**: Find nearest stores by ZIP
+- **GPS Detection**: Browser-based location services
+- **Distance Calculation**: Accurate distance using Haversine formula
+- **Store Cards**: Professional display with status indicators
 
-### **SEO & Analytics**
-- **GA4 Integration**: Automatic tracking with privacy compliance
-- **Meta Tags**: Dynamic SEO for all pages
-- **Sitemap**: Auto-generated XML sitemap
-- **Robots.txt**: Search engine optimization
+### **Store Hours System**
+- **Flexible Formats**: 12-hour or 24-hour time input
+- **Day Management**: Individual hours for each day of week
+- **Closed Days**: Support for stores closed on specific days
+- **Fallback Hours**: Default hours if Sanity data unavailable
 
 ## 📱 Mobile Optimization
 
-### **Responsive Design**
-- Mobile-first CSS approach
-- Touch-friendly navigation
-- Optimized font sizes and spacing
-- Fast loading on mobile networks
+### **Gas Station Mobile Experience**
+- **Quick Access**: Fast loading for customers on-the-go
+- **Touch Navigation**: Large, easy-to-tap buttons and links
+- **Store Finder**: Prominent location search functionality
+- **Professional Design**: Clean, trustworthy appearance
 
-### **Hamburger Menu Animations**
-- Staggered entrance animations
-- Smooth hover effects with shimmer
-- Touch gesture support
-- Accessibility compliant
+### **Performance Features**
+- ✅ Next.js 14 App Router for fast navigation
+- ✅ Optimized images and assets
+- ✅ Minimal JavaScript for fast loading
+- ✅ Professional animations with CSS transforms
+- ✅ Mobile-first responsive design
 
 ## 🚀 Deployment & Production
 
 ### **Sanity Webhook Setup**
 1. Create webhook in Sanity Studio
 2. Point to: `https://yourdomain.com/api/revalidate?secret=YOUR_SECRET`
-3. Set `REVALIDATE_SECRET=YOUR_SECRET` in your deployment environment
-4. Enable for content updates to trigger automatic site rebuilds
+3. Set `REVALIDATE_SECRET=YOUR_SECRET` in deployment environment
+4. Enable automatic site updates when store hours change
 
 ### **Vercel Deployment** (Recommended)
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
+# Deploy to Vercel
 vercel
 
 # Set environment variables in Vercel dashboard
+# Connect GitHub repository for automatic deployments
 ```
-
-### **Performance Optimizations**
-- ✅ Next.js 13+ App Router for faster navigation
-- ✅ Image optimization with Next.js Image component
-- ✅ CSS custom properties for minimal runtime overhead
-- ✅ Lazy loading for non-critical content
-- ✅ Efficient animations with CSS transforms
 
 ## 🛠️ Development Notes
 
-### **File Structure**
+### **Key Components**
 ```
 web/
-├── app/                 # Next.js 13+ App Router
-│   ├── layout.tsx      # Root layout with navigation
-│   ├── page.tsx        # Homepage with hero section
-│   ├── styles/         # Global CSS and theme system
-│   └── [pages]/        # Individual page routes
-├── components/         # Reusable React components
-│   ├── Navigation.tsx  # Header with theme toggle
-│   ├── Breadcrumbs.tsx # Automatic breadcrumb navigation
-│   └── LocationCard.tsx # Location display component
-├── lib/               # Utility functions
-└── public/           # Static assets
+├── components/
+│   ├── LocationStatus.tsx    # Real-time store status
+│   ├── LocationCard.tsx      # Store location display
+│   ├── LocationFinder.tsx    # Store search functionality
+│   └── Navigation.tsx        # Professional site navigation
+├── app/
+│   ├── locations/           # Store finder and individual store pages
+│   ├── api/                 # Geocoding and revalidation APIs
+│   └── styles/              # Gas station theme styling
+└── lib/
+    └── sanity.client.ts     # Sanity integration with debugging
 ```
 
-### **Key Technologies**
-- **Next.js 13+**: App Router, Server Components, TypeScript
-- **Sanity**: Headless CMS with real-time updates
-- **CSS**: Custom properties, animations, responsive design
-- **APIs**: Google Geocoding, Formspree contact forms
+### **Time Handling Features**
+- **Dual Format Parsing**: Automatic detection of 12/24-hour formats
+- **Error Recovery**: Graceful handling of malformed time data
+- **Real-time Updates**: Minute-by-minute status recalculation
+- **Timezone Awareness**: Proper handling of local store times
 
-### **Browser Support**
-- ✅ Chrome/Edge (last 2 versions)
-- ✅ Firefox (last 2 versions)  
-- ✅ Safari (last 2 versions)
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+## 📝 Gas Station Customization Checklist
 
-## 📝 Todo & Customization Checklist
-
-### **Essential Customizations**
-- [ ] Replace logo in `public/logo.png`
-- [ ] Update restaurant name and details in `app/layout.tsx`
-- [ ] Configure Formspree contact form endpoint
-- [ ] Set up Google Geocoding API key
-- [ ] Add CookieYes script in `app/layout.tsx` head section
-- [ ] Configure Sanity CMS with your content
-- [ ] Update theme colors to match brand
-- [ ] Test all pages and functionality
+### **Essential Updates**
+- [ ] Replace logo with gas station branding
+- [ ] Update store name and details throughout site
+- [ ] Configure Sanity Studio with store locations
+- [ ] Set up Google Geocoding API for location services
+- [ ] Test store hours and real-time status functionality
+- [ ] Verify mobile experience for gas station customers
+- [ ] Update contact information and store details
 
 ### **Optional Enhancements**
-- [ ] Add online ordering integration (Toast POS)
-- [ ] Implement cookie consent banner
-- [ ] Add social media links
-- [ ] Configure email marketing integration
-- [ ] Set up additional analytics tracking
-- [ ] Add multilingual support
-- [ ] Implement reservation system
+- [ ] Add fuel price display integration
+- [ ] Implement loyalty program information
+- [ ] Add convenience store product categories
+- [ ] Set up automated price updating
+- [ ] Configure additional analytics tracking
+- [ ] Add multilingual support for diverse communities
 
 ## 📞 Support
 
 For technical issues or customization help:
-1. Check the Next.js documentation
-2. Review Sanity CMS guides
+1. Check browser console for debug logs
+2. Verify Sanity Studio data structure
 3. Test with provided environment variables
-4. Ensure all dependencies are up to date
+4. Review Next.js and Sanity documentation
 
 ---
 
-**Built with ❤️ for modern restaurants**
+**Professional Gas Station Website Solution** ⛽

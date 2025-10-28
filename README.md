@@ -1,33 +1,64 @@
-# Restaurant Starter Project
+# Kamboi Gas Station Store Website
 
-A modern restaurant website built with Next.js and Sanity CMS, featuring location management, menu display, and contact forms.
+A modern gas station and convenience store website built with Next.js and Sanity CMS, featuring location management with real-time store hours, professional design, and comprehensive store services.
 
 ## 🚀 Features
 
-- **Next.js 14** with App Router
+- **Next.js 14** with App Router and TypeScript
 - **Sanity CMS** for content management
-- **TypeScript** for type safety
-- **Location Management** with geocoding
-- **Menu System** with categories and items
-- **Contact Forms** with Web3Forms integration
+- **Real-time Store Status** with dynamic open/closed indicators
+- **Location Services** with GPS and ZIP code search
+- **Store Hours Management** with day-specific scheduling
+- **Professional Gas Station Theme** with red/blue color scheme
+- **Mobile-Responsive Design** optimized for all devices
 - **SEO Optimized** with sitemap and robots.txt
-- **Responsive Design** for all devices
+
+## 🏪 Gas Station Features
+
+### 🕒 **Store Hours & Status**
+- Real-time open/closed status calculation
+- Day-specific store hours via Sanity CMS
+- Countdown timers for opening/closing
+- Fallback hours system for reliability
+- Professional status indicators on location cards
+
+### 📍 **Location Services**
+- Multiple store location management
+- ZIP code and GPS-based store finder
+- Distance calculation with Haversine formula
+- Interactive location cards with store details
+- Store-specific contact information and hours
+
+### 🎨 **Professional Design**
+- **Gas Station Color Scheme**: Professional red (#dc2626) and blue (#0ea5e9) theme
+- **Enhanced Typography**: Professional text styling with shadows and emphasis
+- **Logo Animation**: Smooth zoom animation on homepage
+- **Mobile-First Navigation**: Clean, professional mobile experience
+- **Optimized Layout**: Full-width responsive design
+
+### 🔧 **Technical Features**
+- **Dual Time Format Support**: Handles both 12-hour and 24-hour time formats
+- **Robust Error Handling**: Graceful fallbacks for time parsing issues
+- **Real-time Updates**: Minute-by-minute status calculations
+- **Debug Logging**: Comprehensive console logging for development
+- **CDN-Free Data**: Fresh data from Sanity without CDN delays
 
 ## 📋 Prerequisites
 
-Before you begin, ensure you have the following installed:
+Before you begin, ensure you have:
 
-- **Node.js** (version 18 or higher)
-- **npm** or **yarn** package manager
+- **Node.js** (version 20.19 or higher - required for Sanity v4.12.0)
+- **npm** package manager
 - **Git** for version control
+- **Sanity Account** for content management
 
 ## 🛠️ Installation & Setup
 
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd restaurant-starter
+git clone https://github.com/Kamboi-Stores/Kamboi_Store.git
+cd Kamboi_Store
 ```
 
 ### 2. Install Dependencies
@@ -46,24 +77,16 @@ npm install
 
 ### 3. Environment Configuration
 
-Create environment files for both the web app and Sanity studio:
-
 #### For the Web App (`web/.env.local`):
 
 ```bash
 # Sanity Configuration
-SANITY_PROJECT_ID=p4mai67v
+NEXT_PUBLIC_SANITY_PROJECT_ID=qxbunha1
 SANITY_DATASET=production
 SANITY_API_READ_TOKEN=your_sanity_read_token_here
 
 # Site Configuration
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-
-# Google Analytics (optional)
-NEXT_PUBLIC_GA4_ID=your_ga4_id_here
-
-# Web3Forms (for contact forms)
-NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your_web3forms_key_here
 
 # Google Geocoding API (for location services)
 GOOGLE_GEOCODING_API_KEY=your_google_api_key_here
@@ -75,27 +98,24 @@ REVALIDATE_SECRET=your_revalidation_secret_here
 #### For Sanity Studio (`studio/.env.local`):
 
 ```bash
-SANITY_STUDIO_PROJECT_ID=p4mai67v
+SANITY_STUDIO_PROJECT_ID=qxbunha1
 SANITY_STUDIO_DATASET=production
 ```
 
 ### 4. Sanity Setup
 
-#### Initialize Sanity (if not already done):
+#### Access Sanity Studio:
 
-```bash
-cd studio
-npx sanity init
-```
+The Sanity Studio is deployed at: `https://kamboistores.sanity.studio`
 
-#### Start Sanity Studio:
+Or run locally:
 
 ```bash
 cd studio
 npm run dev
 ```
 
-The Sanity Studio will be available at `http://localhost:3333`
+Local studio available at `http://localhost:3333`
 
 ### 5. Web App Setup
 
@@ -110,80 +130,156 @@ The web application will be available at `http://localhost:3000`
 
 ## 🔧 Configuration
 
-### Sanity Project ID
+### Sanity Project Configuration
 
-The project is configured to use the Sanity project ID `p4mai67v`. If you need to use a different project:
+The project uses Sanity project ID `qxbunha1` with the following content types:
 
-1. Update `studio/sanity.config.ts`
-2. Update `web/lib/sanity.client.ts`
-3. Update your environment variables
+- **Location**: Gas station locations with addresses, coordinates, and store hours
+- **Page**: Static pages (About, Contact, Terms, Privacy, etc.)
+- **SiteSettings**: Global site configuration and branding
 
-### Content Types
+### Store Hours Configuration
 
-The project includes the following Sanity content types:
+Store hours are managed through Sanity CMS with the following structure:
 
-- **Location**: Restaurant locations with addresses and coordinates
-- **MenuCategory**: Menu categories (e.g., Appetizers, Main Course)
-- **MenuItem**: Individual menu items with prices and descriptions
-- **Page**: Static pages (About, Contact, etc.)
-- **SiteSettings**: Global site configuration
+```typescript
+hours: [
+  { day: "monday", open: "06:30", close: "22:30" },
+  { day: "tuesday", open: "06:30", close: "22:30" },
+  // ... other days
+]
+```
+
+Supports both 12-hour ("6:30 AM") and 24-hour ("06:30") formats.
 
 ## 📁 Project Structure
 
 ```
-restaurant-starter/
+Kamboi_Store/
 ├── web/                    # Next.js web application
-│   ├── app/               # App Router pages
+│   ├── app/               # App Router pages and layouts
+│   │   ├── locations/     # Location finder and store pages
+│   │   ├── about/         # About page
+│   │   ├── contact/       # Contact forms
+│   │   ├── api/           # API routes for geocoding and revalidation
+│   │   └── styles/        # Global CSS and theming
 │   ├── components/        # React components
-│   ├── lib/              # Utility functions and Sanity client
-│   └── styles/           # Global styles
+│   │   ├── LocationStatus.tsx  # Real-time store status component
+│   │   ├── LocationCard.tsx    # Store location display
+│   │   ├── LocationFinder.tsx  # Store search functionality
+│   │   └── Navigation.tsx      # Site navigation
+│   └── lib/              # Utilities and Sanity client
 ├── studio/                # Sanity CMS studio
-│   ├── schemas/          # Sanity schema definitions
-│   └── sanity.config.ts  # Sanity configuration
+│   ├── schemas/          # Content type definitions
+│   └── sanity.config.ts  # Studio configuration
 └── README.md
 ```
 
 ## 🚀 Deployment
 
-### Vercel (Recommended for Next.js)
+### Web Application (Vercel Recommended)
 
-1. Connect your repository to Vercel
+1. Connect repository to Vercel
 2. Set environment variables in Vercel dashboard
 3. Deploy automatically on push to main branch
 
-### Sanity Studio Deployment
+### Sanity Studio
+
+The studio is deployed at `https://kamboistores.sanity.studio`
+
+To deploy updates:
 
 ```bash
 cd studio
-npm run deploy
+npx sanity deploy
 ```
 
-## 🔑 API Keys & Services
+## 🎨 Customization
 
-### Required Services:
+### Theme Colors
 
-1. **Sanity**: Content management system
-2. **Google Geocoding API**: For location services
-3. **Web3Forms**: For contact form handling
+The gas station theme uses professional colors defined in `web/app/styles/globals.css`:
 
-### Optional Services:
+```css
+:root {
+  --primary: #dc2626;     /* Professional Red */
+  --secondary: #0ea5e9;   /* Professional Blue */
+  --accent: #dc2626;      /* Accent color */
+}
+```
 
-1. **Google Analytics**: For website analytics
-2. **Google Maps**: For enhanced location features
+### Logo and Branding
+
+- Replace `web/public/logo.png` with your gas station logo
+- Update site name in `web/app/layout.tsx`
+- Modify hero content in `web/app/page.tsx`
+
+## 🏪 Content Management
+
+### Adding Store Locations
+
+1. Access Sanity Studio at `https://kamboistores.sanity.studio`
+2. Navigate to "Location" content type
+3. Add store details including:
+   - Name and address
+   - GPS coordinates (lat/lng)
+   - Phone number
+   - Store hours for each day of the week
+   - Active status
+
+### Store Hours Format
+
+Hours can be entered in either format:
+- **24-hour**: "06:30" to "22:30"
+- **12-hour**: "6:30 AM" to "10:30 PM"
+
+For closed days, enter "closed" in both open and close fields.
+
+## 🔍 Features Deep Dive
+
+### Real-time Store Status
+
+The `LocationStatus` component provides:
+- Live open/closed status calculation
+- Countdown to next status change
+- Support for overnight hours (e.g., closing at 1:00 AM)
+- Fallback to default hours if Sanity data unavailable
+- Comprehensive error handling and logging
+
+### Location Services
+
+- **ZIP Code Search**: Find stores by entering ZIP code
+- **GPS Detection**: Browser-based location detection
+- **Distance Calculation**: Accurate distance using Haversine formula
+- **Store Details**: Address, phone, hours, and status for each location
 
 ## 🐛 Troubleshooting
 
-### Common Issues:
+### Common Issues
 
-1. **Sanity Project ID Error**: Ensure your project ID only contains lowercase letters, numbers, and dashes
-2. **Environment Variables**: Make sure all required environment variables are set
-3. **Port Conflicts**: Ensure ports 3000 (web) and 3333 (studio) are available
+1. **Node.js Version**: Ensure Node.js 20.19+ for Sanity v4.12.0 compatibility
+2. **Time Display Issues**: Check Sanity time format (supports both 12/24-hour)
+3. **Store Status**: Verify system clock and timezone settings
+4. **Sanity Connection**: Confirm project ID `qxbunha1` and API tokens
 
-### Getting Help:
+### Debug Information
 
-- Check the [Next.js documentation](https://nextjs.org/docs)
-- Check the [Sanity documentation](https://www.sanity.io/docs)
-- Review the console for error messages
+The application includes extensive logging:
+- Time parsing and formatting in browser console
+- Sanity data structure in development mode
+- API responses for location and hours data
+
+## 🔑 Required Services
+
+### Essential Services
+
+1. **Sanity CMS**: Content management (Project ID: qxbunha1)
+2. **Google Geocoding API**: Location services and address validation
+
+### Optional Services
+
+1. **Google Analytics**: Website analytics and tracking
+2. **Vercel**: Hosting and deployment platform
 
 ## 📝 License
 
@@ -198,5 +294,12 @@ This project is licensed under the MIT License.
 
 ## 📞 Support
 
-For support, please open an issue in the repository or contact the development team.
+For support and issues:
+- Open an issue in the [GitHub repository](https://github.com/Kamboi-Stores/Kamboi_Store)
+- Check console logs for debugging information
+- Verify Sanity Studio data structure
+
+---
+
+**Built for Kamboi Gas Station Stores** ⛽
 
