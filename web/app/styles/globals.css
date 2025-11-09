@@ -391,6 +391,26 @@ footer {
 
 .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:12px;border:0;font-weight:600;cursor:pointer;}
 .btn > * {position:relative;z-index:2;}
+
+/* Order Online Button */
+.order-btn {
+  background: #28a745 !important;
+  color: white !important;
+}
+.order-btn:hover {
+  background: #218838 !important;
+  transform: translateY(-2px);
+}
+
+/* DoorDash Button */
+.doordash-btn {
+  background: #ff3008 !important;
+  color: white !important;
+}
+.doordash-btn:hover {
+  background: #e02d07 !important;
+  transform: translateY(-2px);
+}
 .card{border:1px solid var(--border);border-radius:16px;padding:16px;background:var(--card-bg);transition:all 0.3s ease;position:relative;}
 .card:hover{transform:translateY(-4px);box-shadow:0 8px 25px var(--shadow);border-color:var(--accent);}
 

@@ -11,7 +11,9 @@ export async function GET() {
         day,
         open,
         close
-      }
+      },
+      orderUrl,
+      doordashUrl
     }`;
     
     const locations = await client.fetch(q);

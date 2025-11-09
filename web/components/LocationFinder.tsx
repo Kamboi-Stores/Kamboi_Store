@@ -316,6 +316,26 @@ export default function LocationFinder() {
                   >
                     Directions
                   </a>
+                  {loc.orderUrl && (
+                    <a 
+                      className="btn order-btn" 
+                      href={loc.orderUrl} 
+                      target="_blank" 
+                      rel="noreferrer"
+                    >
+                      Order Online
+                    </a>
+                  )}
+                  {loc.doordashUrl && (
+                    <a 
+                      className="btn doordash-btn" 
+                      href={loc.doordashUrl} 
+                      target="_blank" 
+                      rel="noreferrer"
+                    >
+                      🚗 DoorDash
+                    </a>
+                  )}
                 </div>
               </div>
             ))}

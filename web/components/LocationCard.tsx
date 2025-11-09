@@ -6,7 +6,7 @@ export default function LocationCard({ location }: Props) {
   const loc = location;
   
   // Debug: Log the location data to see what hours we're getting
-  console.log('LocationCard received location:', loc.name, 'hours:', loc.hours);
+  //console.log('LocationCard received location:', loc.name, 'hours:', loc.hours);
   
   return (
     <div className="card">
@@ -26,6 +26,21 @@ export default function LocationCard({ location }: Props) {
           </a>
         )}
         <a className="btn" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address + ', ' + loc.city + ', ' + loc.state + ' ' + loc.zip)}`} target="_blank" rel="noreferrer">Directions</a>
+        {loc.orderUrl && (
+          <a className="btn order-btn" href={loc.orderUrl} target="_blank" rel="noreferrer">
+            Order Online
+          </a>
+        )}
+        {loc.doordashUrl && (
+          <a 
+            className="btn doordash-btn" 
+            href={loc.doordashUrl} 
+            target="_blank" 
+            rel="noreferrer"
+          >
+            🚗 DoorDash
+          </a>
+        )}
       </div>
     </div>
   );

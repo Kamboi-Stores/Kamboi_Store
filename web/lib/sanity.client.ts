@@ -29,7 +29,8 @@ export async function getActiveLocations() {
       open,
       close
     }, 
-    orderUrl
+    orderUrl,
+    doordashUrl
   } | order(name asc)`;
   
   const result = await client.fetch(q);
@@ -38,12 +39,12 @@ export async function getActiveLocations() {
 }
 
 export async function getLocationBySlug(slug:string) {
-  const q = `*[_type=="location" && slug.current==$slug][0]{name, "slug":slug.current, address, city, state, zip, lat, lng, phone, hours, orderUrl}`;
+  const q = `*[_type=="location" && slug.current==$slug][0]{name, "slug":slug.current, address, city, state, zip, lat, lng, phone, hours, orderUrl, doordashUrl}`;
   return client.fetch(q, { slug });
 }
 
 export async function getLocationsByZip(zip: string) {
-  const q = `*[_type=="location" && isActive==true && zip==$zip]{name, "slug":slug.current, address, city, state, zip, lat, lng, phone, hours, orderUrl} | order(name asc)`;
+  const q = `*[_type=="location" && isActive==true && zip==$zip]{name, "slug":slug.current, address, city, state, zip, lat, lng, phone, hours, orderUrl, doordashUrl} | order(name asc)`;
   return client.fetch(q, { zip });
 }
 

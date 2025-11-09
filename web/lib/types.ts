@@ -16,6 +16,7 @@ export interface Location {
   phone?: string;
   hours?: LocationHours[];
   orderUrl?: string;
+  doordashUrl?: string;
 }
 
 export interface MenuItem {

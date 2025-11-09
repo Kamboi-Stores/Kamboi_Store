@@ -14,7 +14,7 @@ export default async function Page() {
     ctaText: homepage?.ctaText || 'FIND YOUR LOCATION',
     ctaLink: homepage?.ctaLink || '/#find-location',
     heroImage: homepage?.heroImage || null,
-    locationTitle: homepage?.locationTitle || 'FIND A KAMBOI LOCATION'
+    locationTitle: homepage?.locationTitle || 'FIND A KAMBOI LOCATION TO ORDER'
   };
 
   return (

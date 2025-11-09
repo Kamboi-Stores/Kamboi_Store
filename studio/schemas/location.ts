@@ -3,7 +3,7 @@ const location = {
   title: 'Location',
   type: 'document',
   fields: [
-    { name: 'name', title: 'Name', type: 'string', validation: Rule => Rule.required() },
+    { name: 'name', title: 'Name', type: 'string', validation: (Rule: any) => Rule.required() },
     { name: 'slug', title: 'Slug', type: 'slug', options: { source: 'name', maxLength: 64 } },
     { name: 'address', title: 'Address', type: 'string' },
     { name: 'city', title: 'City', type: 'string' },
@@ -19,6 +19,7 @@ const location = {
     ]}]},
     { name: 'parkingNotes', title: 'Parking Notes', type: 'text' },
     { name: 'orderUrl', title: 'Order URL (Toast)', type: 'url' },
+    { name: 'doordashUrl', title: 'DoorDash URL', type: 'url', description: 'Direct link to this location on DoorDash' },
     { name: 'heroImage', title: 'Hero Image', type: 'image' },
     { name: 'isActive', title: 'Active', type: 'boolean', initialValue: true }
   ]
