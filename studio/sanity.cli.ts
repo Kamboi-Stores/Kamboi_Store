@@ -6,5 +6,8 @@ export default defineCliConfig({
     projectId: 'qxbunha1',   
     dataset: 'production'
   },
-  studioHost: 'kamboistores'  
+  studioHost: 'kamboistores',
+  deployment: {
+    appId: 'v3atrawvxhtwt5ete72w4hlx',
+  }
 })
