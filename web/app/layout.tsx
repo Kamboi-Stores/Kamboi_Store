@@ -3,6 +3,8 @@ import React from 'react';
 import Script from 'next/script';
 import Navigation from '../components/Navigation';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata = {
   title: 'Kamboi Gas Station',
@@ -60,6 +62,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
